@@ -1,14 +1,19 @@
 with Interfaces.C;
 with Ada.Text_IO;
+with GL.C;
+with GL.C.Complete;
 
-package body GL.Programs.Uniforms is
+package body GL.Uniforms is
+
+   use GL.C;
 
    function Identity (Item : Location) return GLint is
    begin
       return GLint (Item);
    end;
 
-   function Get (From : Program; Name : String) return Location is
+   function Get (From : GL.Programs.Program; Name : String) return Location is
+      use GL.Programs;
       use GL.C.Complete;
       use Interfaces.C;
    begin
@@ -16,8 +21,9 @@ package body GL.Programs.Uniforms is
    end;
 
 
-   function Get_Checked (From : Program; Name : String) return Location is
+   function Get_Checked (From : GL.Programs.Program; Name : String) return Location is
       use GL.C.Complete;
+      use GL.Programs;
       --use Interfaces.C;
       use type GL.C.GLint;
       L : GLint;

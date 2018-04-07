@@ -3,7 +3,7 @@ with Interfaces.C;
 with Interfaces.C.Strings;
 
 
-package body GL.Programs.Shaders is
+package body GL.Shaders is
 
    function Identity (Item : Shader) return GLuint is
    begin
@@ -29,14 +29,6 @@ package body GL.Programs.Shaders is
    begin
       glDeleteShader (GLuint (Item));
    end;
-
-
-   procedure Attach (To : Program; Attachment : Shader) is
-   begin
-      glAttachShader (GLuint (To), GLuint (Attachment));
-   end;
-
-
 
 
    procedure Get_Info (Item : Shader; P : Shader_Info; R : access GLint) is

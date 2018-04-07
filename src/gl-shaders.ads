@@ -1,6 +1,8 @@
 with GL.Errors;
+with GL.C;
+with GL.C.Complete;
 
-package GL.Programs.Shaders is
+package GL.Shaders is
 
    use GL.C;
    use GL.C.Complete;
@@ -25,13 +27,6 @@ package GL.Programs.Shaders is
      Pre => Is_Shader (Item),
      Post => Check_No_Error;
 
-   procedure Attach (To : Program; Attachment : Shader) with
-     Pre => Validate (To),
-     Post => Check_No_Error;
-   -- ShaderSource sets the source code in shader.
-   -- Any source code previously stored in the shader object is completely replaced.
-   -- OpenGL copies the shader source code strings when glShaderSource is called,
-   -- so an application may free its copy of the source code strings immediately after the function returns.
    procedure Set_Source (Item : Shader; Source : String) with
      Pre => Is_Shader (Item),
      Post => Check_No_Error;

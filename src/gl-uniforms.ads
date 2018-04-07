@@ -1,7 +1,9 @@
 with GL.Errors;
 with System;
+with GL.C;
+with GL.Programs;
 
-package GL.Programs.Uniforms is
+package GL.Uniforms is
 
    pragma Assertion_Policy (Check);
    --pragma Assertion_Policy (Ignore);
@@ -18,11 +20,11 @@ package GL.Programs.Uniforms is
 
 
 -- glGetUniformLocation
-   function Get (From : Program; Name : String) return Location with
+   function Get (From : GL.Programs.Program; Name : String) return Location with
      Post => Check_No_Error;
 
    -- glGetUniformLocation
-   function Get_Checked (From : Program; Name : String) return Location with
+   function Get_Checked (From : GL.Programs.Program; Name : String) return Location with
      Post => Check_No_Error;
 
 

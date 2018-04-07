@@ -1,6 +1,7 @@
 with GL.C;
 with GL.C.Complete;
 with GL.Errors;
+with GL.Shaders;
 
 package GL.Programs is
 
@@ -33,8 +34,15 @@ package GL.Programs is
      Pre => Validate (Item),
      Post => Check_No_Error;
 
-   procedure Attach (To : Program; Attachment : GLuint) with
+
+   -- ShaderSource sets the source code in shader.
+   -- Any source code previously stored in the shader object is completely replaced.
+   -- OpenGL copies the shader source code strings when glShaderSource is called,
+   -- so an application may free its copy of the source code strings immediately after the function returns.
+   procedure Attach (To : Program; Attachment : Shaders.Shader) with
+     Pre => Validate (To),
      Post => Check_No_Error;
+
 
    procedure Get_Link_Log (Item : Program; Message : out String; Count : out Natural) with
      Post => Check_No_Error;

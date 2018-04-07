@@ -56,9 +56,10 @@ package body GL.Programs is
       return GLuint (Item);
    end;
 
-   procedure Attach (To : Program; Attachment : GLuint) is
+   procedure Attach (To : Program; Attachment : Shaders.Shader) is
+      use Shaders;
    begin
-      glAttachShader (GLuint (To), Attachment);
+      glAttachShader (GLuint (To), Identity (Attachment));
    end;
 
    procedure Get_Info (From : Program; Kind : Program_Info; Result : access GLint) is
