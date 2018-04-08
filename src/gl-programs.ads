@@ -5,7 +5,6 @@ with GL.Shaders;
 package GL.Programs is
 
    use GL.C;
-   use GL.Errors;
 
    type Program is private;
 
@@ -14,23 +13,23 @@ package GL.Programs is
    function Identity (Item : Program) return GLuint;
 
    function Validate (Item : Program) return Boolean with
-     Post => Check_No_Error;
+     Post => Errors.Successful;
 
    function Create_Empty return Program with
-     Post => Validate (Create_Empty'Result) and Check_No_Error;
+     Post => Validate (Create_Empty'Result) and Errors.Successful;
 
    procedure Delete (Item : Program) with
-     Post => Check_No_Error;
+     Post => Errors.Successful;
 
    procedure Link (Item : Program) with
-     Post => Check_No_Error;
+     Post => Errors.Successful;
 
    procedure Link_Checked (Item : Program) with
-     Post => Check_No_Error;
+     Post => Errors.Successful;
 
    procedure Set_Current (Item : Program) with
      Pre => Validate (Item),
-     Post => Check_No_Error;
+     Post => Errors.Successful;
 
 
    -- ShaderSource sets the source code in shader.
@@ -39,17 +38,17 @@ package GL.Programs is
    -- so an application may free its copy of the source code strings immediately after the function returns.
    procedure Attach (To : Program; Attachment : Shaders.Shader) with
      Pre => Validate (To),
-     Post => Check_No_Error;
+     Post => Errors.Successful;
 
 
    procedure Get_Link_Log (Item : Program; Message : out String; Count : out Natural) with
-     Post => Check_No_Error;
+     Post => Errors.Successful;
 
    function Get_Link_Log (Item : Program; Count : Natural := 1024) return String with
-     Post => Check_No_Error;
+     Post => Errors.Successful;
 
    function Link_Succeess (Item : Program) return Boolean with
-     Post => Check_No_Error;
+     Post => Errors.Successful;
 
    Link_Error : exception;
 

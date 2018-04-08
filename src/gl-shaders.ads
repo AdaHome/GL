@@ -30,48 +30,48 @@ package GL.Shaders is
    type Shader is private;
 
    function Is_Shader (Item : Shader) return Boolean with
-     Post => Check_No_Error;
+     Post => Errors.Successful;
 
    function Identity (Item : Shader) return GLuint;
 
    function Create_Empty (Kind : Shader_Stage) return Shader with
-     Post => Is_Shader (Create_Empty'Result) and Check_No_Error;
+     Post => Is_Shader (Create_Empty'Result) and Errors.Successful;
 
    procedure Delete (Item : Shader) with
      Pre => Is_Shader (Item),
-     Post => Check_No_Error;
+     Post => Errors.Successful;
 
    procedure Set_Source (Item : Shader; Source : String) with
      Pre => Is_Shader (Item),
-     Post => Check_No_Error;
+     Post => Errors.Successful;
 
    procedure Compile (Item : Shader) with
      Pre => Is_Shader (Item),
-     Post => Check_No_Error;
+     Post => Errors.Successful;
 
    procedure Compile_Checked (Item : Shader) with
      Pre => Is_Shader (Item),
-     Post => Check_No_Error;
+     Post => Errors.Successful;
 
    function Compile_Succeess (Item : Shader) return Boolean with
      Pre => Is_Shader (Item),
-     Post => Check_No_Error;
+     Post => Errors.Successful;
 
    procedure Get_Compile_Log (Item : Shader; Message : out String; Count : out Natural) with
      Pre => Is_Shader (Item),
-     Post => Check_No_Error;
+     Post => Errors.Successful;
 
    function Get_Source_Length (Item : Shader) return Natural with
      Pre => Is_Shader (Item),
-     Post => Check_No_Error;
+     Post => Errors.Successful;
 
    function Get_Compile_Log (Item : Shader; Count : Natural := 1024) return String with
      Pre => Is_Shader (Item),
-     Post => Check_No_Error;
+     Post => Errors.Successful;
 
    function Get_Stage (Item : Shader) return Shader_Stage with
      Pre => Is_Shader (Item),
-     Post => Check_No_Error;
+     Post => Errors.Successful;
 
    Compile_Error : exception;
 

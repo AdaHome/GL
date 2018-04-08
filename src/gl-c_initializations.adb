@@ -1,12 +1,9 @@
 with Ada.Unchecked_Conversion;
 with GL.C;
-with GL.C_Accessories;
 
 package body GL.C_Initializations is
 
    use Ada;
-
-
 
    function Convert is new Unchecked_Conversion (System.Address, C.P.glCreateProgram);
    function Convert is new Unchecked_Conversion (System.Address, C.P.glDeleteProgram);

@@ -37,7 +37,7 @@ package GL.Vertex_Array_Objects is
    -- glCreateVertexArrays returns n previously unused vertex array object names in arrays,
    -- each representing a new vertex array object initialized to the default state.
    function Create_Attribute return Vertex_Array_Object with
-     Post => Is_Vertex_Array_Object (Create_Attribute'Result) and Check_No_Error;
+     Post => Is_Vertex_Array_Object (Create_Attribute'Result) and Errors.Successful;
 
 
 
@@ -49,7 +49,7 @@ package GL.Vertex_Array_Objects is
    -- and any previous vertex array object binding is broken.
    procedure Bind (Item : Vertex_Array_Object) with
      Pre => Is_Vertex_Array_Object (Item),
-     Post => Check_No_Error;
+     Post => Errors.Successful;
 
 
 

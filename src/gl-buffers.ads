@@ -58,7 +58,7 @@ package GL.Buffers is
    -- glCreateBuffers returns n previously unused buffer names in buffers,
    -- each representing a new buffer object initialized as if it had been bound to an unspecified target.
    function Create_Buffer return Buffer with
-     Post => Is_Buffer (Create_Buffer'Result) and Check_No_Error;
+     Post => Is_Buffer (Create_Buffer'Result) and Errors.Successful;
 
 
    -- glBindBuffer binds a buffer object to the specified buffer binding point.
@@ -67,15 +67,15 @@ package GL.Buffers is
    -- If no buffer object with name buffer exists, one is created with that name.
    -- When a buffer object is bound to a target, the previous binding for that target is automatically broken.
    procedure Bind (To : Buffer_Slot; Item : Buffer) with
-     Post => Is_Buffer (Item) and Check_No_Error;
+     Post => Is_Buffer (Item) and Errors.Successful;
 
 
    procedure Create_New_Storage (B : Buffer; Size_Bytes : Natural; Data : Address; Usage : Buffer_Usage) with
-     Post => Is_Buffer (B) and Check_No_Error;
+     Post => Is_Buffer (B) and Errors.Successful;
 
    --procedure Create_New_Storage (B : Buffer; Size_Bytes : Natural; Usage : Buffer_Usage);
    procedure Redefine_Storage (B : Buffer; Offset_Byte : Natural; Size_Bytes : Natural; Data : Address) with
-     Post => Is_Buffer (B) and Check_No_Error;
+     Post => Is_Buffer (B) and Errors.Successful;
 
    function Identity (Item : Buffer) return GLuint;
 

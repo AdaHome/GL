@@ -45,19 +45,19 @@ package GL.Textures is
    function Generate return Texture;
 
    function Create (Target : Targets.Target) return Texture with
-     Post => Is_Texture (Create'Result) and Check_No_Error;
+     Post => Is_Texture (Create'Result) and Errors.Successful;
 
    procedure Bind (Target : Targets.Target; Name : Texture) with
-     Post => Is_Texture (Name) and Check_No_Error;
+     Post => Is_Texture (Name) and Errors.Successful;
 
    --glTextureStorage2D
    procedure Allocate (Name : Texture; Format : Internal_Pixel_Format; Width : Texels; Height : Texels) with
      Pre => Is_Texture (Name),
-     Post => Check_No_Error;
+     Post => Errors.Successful;
 
    procedure Allocate_3D (Name : Texture; Format : Internal_Pixel_Format; Width : Texels; Height : Texels; Depth : Texels) with
      Pre => Is_Texture (Name),
-     Post => Check_No_Error;
+     Post => Errors.Successful;
 
    -- glTexStorage2D and glTextureStorage2D specify the storage requirements for
    -- all levels of a two-dimensional texture or one-dimensional texture array simultaneously.
@@ -68,7 +68,7 @@ package GL.Textures is
    -- Texturing maps a portion of a specified texture image onto each graphical primitive for which texturing is enabled.
    procedure Load (Name : Texture; xoffset : GLint; yoffset : GLint; width : GLsizei; height : GLsizei; Format : Pixel_Format; Kind : Pixel_Type; Data : Address) with
      Pre => Is_Texture (Name),
-     Post => Check_No_Error;
+     Post => Errors.Successful;
 
    procedure Load_3D
      (
@@ -76,25 +76,25 @@ package GL.Textures is
       xoffset : GLint; yoffset : GLint; zoffset : GLint;
       width : GLsizei; height : GLsizei; depth : GLsizei; Format : Pixel_Format; Kind : Pixel_Type; Data : Address) with
      Pre => Is_Texture (Name),
-     Post => Check_No_Error;
+     Post => Errors.Successful;
 
    procedure Load (Target : Targets.Target; width : GLsizei; height : GLsizei; Format : Pixel_Format; Kind : Pixel_Type; Data : Address) with
-     Post => Check_No_Error;
+     Post => Errors.Successful;
 
    procedure Set_Parameter (Name : Texture; Symbol : Symbolic_Name; Param : Symbolic_Param) with
      Pre => Is_Texture (Name),
-     Post => Check_No_Error;
+     Post => Errors.Successful;
 
    procedure Set_Parameter (Target : Targets.Target; Symbol : Symbolic_Name; Param : Symbolic_Param) with
-     Post => Check_No_Error;
+     Post => Errors.Successful;
 
    procedure Set_Pack_Pixel_Alignment (Bytes : GLint) with
      Pre => Bytes in 1 | 2 | 4 | 8,
-     Post => Check_No_Error;
+     Post => Errors.Successful;
 
    procedure Set_Unpack_Pixel_Alignment (Bytes : GLint) with
      Pre =>  Bytes in 1 | 2 | 4 | 8,
-     Post => Check_No_Error;
+     Post => Errors.Successful;
 
 private
 

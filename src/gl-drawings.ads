@@ -4,7 +4,6 @@ with GL.Errors;
 package GL.Drawings is
 
    use GL.C;
-   use GL.Errors;
 
    type Mode is (Lines_Mode, Line_Strip_Mode, Triangles_Mode);
 
@@ -21,11 +20,11 @@ package GL.Drawings is
 
    -- glDrawArrays
    procedure Draw (Item : Mode; From : Natural; Count : Natural) with
-     Post => Check_No_Error;
+     Post => Errors.Successful;
 
 
    procedure Viewport (X, Y, Width, Height : Natural) with
-     Post => Check_No_Error;
+     Post => Errors.Successful;
 
 
    -- glClear sets the bitplane area of the window to values previously selected by

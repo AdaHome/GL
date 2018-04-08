@@ -18,13 +18,13 @@ package GL.Uniforms is
 
 
 
--- glGetUniformLocation
-   function Get (From : GL.Programs.Program; Name : String) return Location with
-     Post => Check_No_Error;
+   -- glGetUniformLocation
+   function Get (From : Programs.Program; Name : String) return Location with
+     Post => Errors.Successful;
 
    -- glGetUniformLocation
-   function Get_Checked (From : GL.Programs.Program; Name : String) return Location with
-     Post => Check_No_Error;
+   function Get_Checked (From : Programs.Program; Name : String) return Location with
+     Post => Errors.Successful;
 
 
 
@@ -34,13 +34,13 @@ package GL.Uniforms is
    -- glUniform operates on the program object that was made part of current state by calling glUseProgram.
    -- glUniformMatrix4fv
    procedure Modify_Matrix_4f (Item : Location; Data : Address) with
-     Post => Check_No_Error;
+     Post => Errors.Successful;
 
    procedure Modify_1f (Item : Location; Data : GLFloat) with
-     Post => Check_No_Error;
+     Post => Errors.Successful;
 
    procedure Modify_1i (Item : Location; Data : GLint) with
-     Post => Check_No_Error;
+     Post => Errors.Successful;
 
 
    function Identity (Item : Location) return GLint;
