@@ -1,10 +1,6 @@
-with GL.C.Complete;
 with Interfaces.C;
 
 package body GL.Programs is
-
-   use GL.C.Complete;
-
 
 
    function Create_Empty return Program is
@@ -20,7 +16,6 @@ package body GL.Programs is
    end;
 
    procedure Link (Item : Program) is
-      use GL.C;
    begin
       glLinkProgram (GLuint (Item));
    end;
@@ -37,13 +32,11 @@ package body GL.Programs is
    end;
 
    procedure Set_Current (Item : Program) is
-      use GL.C;
    begin
       glUseProgram (GLuint (Item));
    end;
 
    function Validate (Item : Program) return Boolean is
-      use GL.C;
       use type GLboolean;
       B : GLboolean;
    begin

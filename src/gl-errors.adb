@@ -1,10 +1,8 @@
-with GL.C.Complete;
-
 package body GL.Errors is
 
 
    function Check_No_Error return Boolean is
-      use GL.C.Complete;
+      use GL.C;
       use type GL.C.GLenum;
       E : GLenum;
    begin

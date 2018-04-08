@@ -1,5 +1,4 @@
 with GL.C;
-with GL.C.Complete;
 with System;
 with GL.Errors;
 
@@ -9,7 +8,6 @@ package GL.Buffers is
    --pragma Assertion_Policy (Ignore);
 
    use GL.C;
-   use GL.C.Complete;
    use GL.Errors;
    use System;
 

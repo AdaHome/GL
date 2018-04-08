@@ -1,16 +1,30 @@
 with GL.Errors;
 with GL.C;
-with GL.C.Complete;
+
 
 package GL.Shaders is
 
    use GL.C;
-   use GL.C.Complete;
    use GL.Errors;
    use type GL.C.GLenum;
 
-   type Shader_Stage is (Fragment_Stage, Vertex_Stage, Geometry_Stage, Tess_Evaluation_Stage, Tess_Control_Stage);
-   type Shader_Info is (Stage_Info, Delete_Info, Compile_Info, Log_Length_Info, Source_Length_Info);
+   type Shader_Stage is
+     (
+      Fragment_Stage,
+      Vertex_Stage,
+      Geometry_Stage,
+      Tess_Evaluation_Stage,
+      Tess_Control_Stage
+     );
+
+   type Shader_Info is
+     (
+      Stage_Info,
+      Delete_Info,
+      Compile_Info,
+      Log_Length_Info,
+      Source_Length_Info
+     );
 
    -- Specifies the handle of the shader object whose source code is to be replaced.
    type Shader is private;
@@ -63,10 +77,10 @@ package GL.Shaders is
 
 private
 
-   type Shader is new GLuint range 1 .. GLuint'Last;
+   type Shader is new GL.C.GLuint range 1 .. GL.C.GLuint'Last;
 
-   for Shader_Stage'Size use GLenum'Size;
-   for Shader_Info'Size use GLenum'Size;
+   for Shader_Stage'Size use GL.C.GLenum'Size;
+   for Shader_Info'Size use GL.C.GLenum'Size;
 
    for Shader_Stage use
      (
@@ -79,10 +93,10 @@ private
 
    for Shader_Info use
      (
-      Stage_Info => GL_SHADER_TYPE,
-      Delete_Info => GL_DELETE_STATUS,
-      Compile_Info => GL_COMPILE_STATUS,
-      Log_Length_Info => GL_INFO_LOG_LENGTH,
+      Stage_Info         => GL_SHADER_TYPE,
+      Delete_Info        => GL_DELETE_STATUS,
+      Compile_Info       => GL_COMPILE_STATUS,
+      Log_Length_Info    => GL_INFO_LOG_LENGTH,
       Source_Length_Info => GL_SHADER_SOURCE_LENGTH
      );
 

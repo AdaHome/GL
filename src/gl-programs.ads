@@ -1,12 +1,10 @@
 with GL.C;
-with GL.C.Complete;
 with GL.Errors;
 with GL.Shaders;
 
 package GL.Programs is
 
    use GL.C;
-   use GL.C.Complete;
    use GL.Errors;
 
    type Program is private;
@@ -63,9 +61,9 @@ private
    for Program_Info'Size use GLenum'Size;
    for Program_Info use
      (
-      Delete_Info => GL_DELETE_STATUS,
-      Compile_Info => GL_COMPILE_STATUS,
-      Link_Info => GL_LINK_STATUS,
+      Delete_Info     => GL_DELETE_STATUS,
+      Compile_Info    => GL_COMPILE_STATUS,
+      Link_Info       => GL_LINK_STATUS,
       Log_Length_Info => GL_INFO_LOG_LENGTH
      );
 

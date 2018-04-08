@@ -1,7 +1,6 @@
 with Interfaces.C;
 with Ada.Text_IO;
 with GL.C;
-with GL.C.Complete;
 
 package body GL.Uniforms is
 
@@ -12,17 +11,15 @@ package body GL.Uniforms is
       return GLint (Item);
    end;
 
-   function Get (From : GL.Programs.Program; Name : String) return Location is
+   function Get (From : Programs.Program; Name : String) return Location is
       use GL.Programs;
-      use GL.C.Complete;
       use Interfaces.C;
    begin
       return Location (glGetUniformLocation (Identity (From), To_C (Name)));
    end;
 
 
-   function Get_Checked (From : GL.Programs.Program; Name : String) return Location is
-      use GL.C.Complete;
+   function Get_Checked (From : Programs.Program; Name : String) return Location is
       use GL.Programs;
       --use Interfaces.C;
       use type GL.C.GLint;
@@ -38,22 +35,16 @@ package body GL.Uniforms is
 
 
    procedure Modify_Matrix_4f (Item : Location; Data : Address) is
-      use GL.C.Complete;
-      use GL.C;
    begin
       glUniformMatrix4fv (GLint (Item), 1, GL_FALSE, Data);
    end;
 
    procedure Modify_1f (Item : Location; Data : GLFloat) is
-      use GL.C.Complete;
-      use GL.C;
    begin
       glUniform1f (GLint (Item), Data);
    end;
 
    procedure Modify_1i (Item : Location; Data : GLint) is
-      use GL.C.Complete;
-      use GL.C;
    begin
       glUniform1i (GLint (Item), Data);
    end;

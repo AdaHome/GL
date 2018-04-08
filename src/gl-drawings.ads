@@ -1,11 +1,9 @@
 with GL.C;
-with GL.C.Complete;
 with GL.Errors;
 
 package GL.Drawings is
 
    use GL.C;
-   use GL.C.Complete;
    use GL.Errors;
 
    type Mode is (Lines_Mode, Line_Strip_Mode, Triangles_Mode);
@@ -50,9 +48,9 @@ private
    for Mode'Size use GLenum'Size;
    for Mode use
      (
-      Lines_Mode => GL_LINES,
+      Lines_Mode      => GL_LINES,
       Line_Strip_Mode => GL_LINE_STRIP,
-      Triangles_Mode => GL_TRIANGLES
+      Triangles_Mode  => GL_TRIANGLES
      );
 
 end;

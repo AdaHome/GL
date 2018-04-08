@@ -1,23 +1,23 @@
 with GL.C;
-with GL.C.Complete;
 with System;
 with GL.Errors;
 
 package GL.Vertex_Array_Objects is
 
    use GL.Errors;
+   use GL.C;
 
-   type Vertex_Array_Object is new GL.C.GLuint;
+   type Vertex_Array_Object is new GLuint;
 
 
    -- Generic vertex attribute to be used.
-   type Component_Attribute is new GL.C.GLuint;
+   type Component_Attribute is new GLuint;
 
 
    -- Specifies the data type of each component in the array.
    type Component_Kind is (Byte_Type, Unsigned_Byte_Type, Short_Type, Unsigned_Short_Type, Float_Type, Fixed_Type);
 
-   type Component_Count is new GL.C.GLint;
+   type Component_Count is new GLint;
 
    function Is_Vertex_Array_Object (Item : Vertex_Array_Object) return Boolean;
 
@@ -67,7 +67,9 @@ package GL.Vertex_Array_Objects is
    -- glDisableVertexAttribArray and glDisableVertexArrayAttrib disable the generic vertex attribute array specified by index.
    -- glDisableVertexAttribArray uses currently bound vertex array object for the operation,
    -- whereas glDisableVertexArrayAttrib updates state of the vertex array object with ID vaobj.
-   procedure Set_Attribute_Enable (Item : Vertex_Array_Object; Attribute : Component_Attribute) with
+   procedure Set_Attribute_Enable
+     (Item      : Vertex_Array_Object;
+      Attribute : Component_Attribute) with
      Pre => Is_Vertex_Array_Object (Item);
 
 
@@ -83,7 +85,13 @@ package GL.Vertex_Array_Objects is
    -- are to be mapped to the range [-1,1] (for signed values) or [0,1] (for unsigned values)
    -- when they are accessed and converted to floating point. Otherwise, values will be converted to
    -- floats directly without normalization.
-   procedure Set_Attribute_Memory_Layout (Attribute : Component_Attribute; Count : Component_Count; Kind : Component_Kind; Normalized : Boolean; Stride_Bytes : Natural; Offset_Bytes : Natural);
+   procedure Set_Attribute_Memory_Layout
+     (Attribute    : Component_Attribute;
+      Count        : Component_Count;
+      Kind         : Component_Kind;
+      Normalized   : Boolean;
+      Stride_Bytes : Natural;
+      Offset_Bytes : Natural);
 
 
 
@@ -95,7 +103,13 @@ package GL.Vertex_Array_Objects is
    -- last three ones modify the state of a vertex array object with ID vaobj.
    -- attribindex specifies the index of the generic vertex attribute array whose data layout is being described,
    -- and must be less than the value of GL_MAX_VERTEX_ATTRIBS.
-   procedure Set_Attribute_Memory_Layout (VAO : Vertex_Array_Object; Attribute : Component_Attribute; Count : Component_Count; Kind : Component_Kind; Normalized : Boolean; Offset_Bytes : Natural) with
+   procedure Set_Attribute_Memory_Layout
+     (VAO          : Vertex_Array_Object;
+      Attribute    : Component_Attribute;
+      Count        : Component_Count;
+      Kind         : Component_Kind;
+      Normalized   : Boolean;
+      Offset_Bytes : Natural) with
      Pre => Is_Vertex_Array_Object (VAO);
 
 
@@ -107,7 +121,9 @@ package GL.Vertex_Array_Objects is
    -- If name is a matrix attribute variable, the index of the first column of the matrix is returned.
    -- If the named attribute variable is not an active attribute in the specified
    -- program object or if name starts with the reserved prefix "gl_", a value of -1 is returned.
-   function Get_Attribute_By_Name (From_Program : GL.C.GLuint; Name : String) return Component_Attribute;
+   function Get_Attribute_By_Name
+     (From_Program : GLuint;
+      Name         : String) return Component_Attribute;
 
 
 
@@ -121,12 +137,12 @@ private
    for Component_Kind'Size use GL.C.GLenum'Size;
    for Component_Kind use
      (
-      Byte_Type           => GL.C.Complete.GL_BYTE,
-      Unsigned_Byte_Type  => GL.C.Complete.GL_UNSIGNED_BYTE,
-      Short_Type          => GL.C.Complete.GL_SHORT,
-      Unsigned_Short_Type => GL.C.Complete.GL_UNSIGNED_SHORT,
-      Float_Type          => GL.C.Complete.GL_FLOAT,
-      Fixed_Type          => GL.C.Complete.GL_FIXED
+      Byte_Type           => GL_BYTE,
+      Unsigned_Byte_Type  => GL_UNSIGNED_BYTE,
+      Short_Type          => GL_SHORT,
+      Unsigned_Short_Type => GL_UNSIGNED_SHORT,
+      Float_Type          => GL_FLOAT,
+      Fixed_Type          => GL_FIXED
      );
 
 end;

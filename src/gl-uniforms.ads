@@ -10,7 +10,6 @@ package GL.Uniforms is
 
    use GL.Errors;
    use GL.C;
-   use GL.Errors;
 
    subtype Address is System.Address;
 

@@ -1,5 +1,4 @@
 with GL.C;
-with GL.C.Complete;
 with System;
 with GL.Errors;
 
@@ -10,7 +9,6 @@ package GL.Textures is
 
    use GL.Errors;
    use GL.C;
-   use GL.C.Complete;
    use System;
    use type GL.C.GLenum;
 
@@ -24,10 +22,10 @@ package GL.Textures is
       for Target'Size use GLenum'Size;
       for Target use
         (
-         Texture_1D => GL_TEXTURE_1D,
-         Texture_3D => GL_TEXTURE_2D,
-         Texture_2D_Array => GL_TEXTURE_2D_ARRAY
-        );
+	 Texture_1D       => GL_TEXTURE_1D,
+	 Texture_3D       => GL_TEXTURE_2D,
+	 Texture_2D_Array => GL_TEXTURE_2D_ARRAY
+	);
    end;
 
 
@@ -114,30 +112,30 @@ private
 
    for Pixel_Format use
      (
-      Red_Pixel_Format => GL_RED,
-      RGB_Pixel_Format => GL_RGB,
+      Red_Pixel_Format  => GL_RED,
+      RGB_Pixel_Format  => GL_RGB,
       RGBA_Pixel_Format => GL_RGBA
      );
 
    for Internal_Pixel_Format use
      (
       RGBA2_Internal_Pixel_Format => GL_RGBA2,
-      R8_Internal_Pixel_Format => GL_R8,
-      R16_Internal_Pixel_Format => GL_R16
+      R8_Internal_Pixel_Format    => GL_R8,
+      R16_Internal_Pixel_Format   => GL_R16
      );
 
    for Pixel_Type use
      (
-      Byte_Pixel_Type => GL_BYTE,
+      Byte_Pixel_Type          => GL_BYTE,
       Unsigned_Byte_Pixel_Type => GL_UNSIGNED_BYTE
      );
 
    for Symbolic_Param use
      (
-      Nearest_Param => GL_NEAREST,
-      Linear_Param => GL_LINEAR,
-      Clamp_Param => GL_CLAMP,
-      Repeat_Param => GL_REPEAT,
+      Nearest_Param       => GL_NEAREST,
+      Linear_Param        => GL_LINEAR,
+      Clamp_Param         => GL_CLAMP,
+      Repeat_Param        => GL_REPEAT,
       Clamp_To_Edge_Param => GL_CLAMP_TO_EDGE
      );
 
@@ -145,8 +143,8 @@ private
      (
       Texture_Mag_Filter => GL_TEXTURE_MAG_FILTER,
       Texture_Min_Filter => GL_TEXTURE_MIN_FILTER,
-      Texture_Wrap_S => GL_TEXTURE_WRAP_S,
-      Texture_Wrap_T => GL_TEXTURE_WRAP_T
+      Texture_Wrap_S     => GL_TEXTURE_WRAP_S,
+      Texture_Wrap_T     => GL_TEXTURE_WRAP_T
      );
 
 

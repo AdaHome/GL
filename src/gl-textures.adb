@@ -1,20 +1,14 @@
-with GL.C.Complete;
 with Ada.Assertions;
 
 package body GL.Textures is
 
-
-
-   use Ada.Assertions;
-
    function Is_Texture (Name : Texture) return Boolean is
-      use type GL.C.GLboolean;
+      use type GLboolean;
    begin
       return glIsTexture (GLuint (Name)) = GL_TRUE;
    end;
 
    function Generate return Texture is
-      use GL.C.Complete;
       tex : aliased GLuint;
    begin
       glGenTextures (1, tex'Access);
@@ -22,7 +16,6 @@ package body GL.Textures is
    end;
 
    function Create (Target : Targets.Target) return Texture is
-      use GL.C.Complete;
       tex : aliased GLuint;
    begin
       glCreateTextures (Target'Enum_Rep, 1, tex'Access);
