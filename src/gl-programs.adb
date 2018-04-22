@@ -36,7 +36,7 @@ package body GL.Programs is
       glUseProgram (GLuint (Item));
    end;
 
-   function Validate (Item : Program) return Boolean is
+   function Is_Program (Item : Program) return Boolean is
       use type GLboolean;
       B : GLboolean;
    begin

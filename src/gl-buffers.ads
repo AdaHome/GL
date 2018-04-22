@@ -1,108 +1,92 @@
 with GL.C;
 with System;
-with GL.Errors;
 
 package GL.Buffers is
 
    pragma Assertion_Policy (Check);
    --pragma Assertion_Policy (Ignore);
 
-   use GL.C;
-   use GL.Errors;
-   use System;
 
-
-   -- Buffer object name
-   type Buffer is new GLuint range 0 .. GLuint'Last;
-
-
-   type Buffer_Array is array (Integer range <>) of aliased Buffer;
-
-
-   --  Legacy
-   --  Array_Slot	        Vertex attributes
-   --  GL_ATOMIC_COUNTER_BUFFER	Atomic counter storage
-   --  GL_COPY_READ_BUFFER	Buffer copy source
-   --  GL_COPY_WRITE_BUFFER	Buffer copy destination
-   --  GL_DISPATCH_INDIRECT_BUFFER	Indirect compute dispatch commands
-   --  GL_DRAW_INDIRECT_BUFFER	Indirect command arguments
-   --  Element_Array_Slot	Vertex array indices
-   --  GL_PIXEL_PACK_BUFFER	Pixel read target
-   --  GL_PIXEL_UNPACK_BUFFER	Texture data source
-   --  GL_QUERY_BUFFER	Query result buffer
-   --  GL_SHADER_STORAGE_BUFFER	Read-write storage for shaders
-   --  GL_TEXTURE_BUFFER	Texture data buffer
-   --  GL_TRANSFORM_FEEDBACK_BUFFER	Transform feedback buffer
-   --  GL_UNIFORM_BUFFER	Uniform block storage
-   type Buffer_Slot is (Array_Slot, Element_Array_Slot);
+   procedure Dummy;
 
 
    -- Specifies the target to which the buffer object is bound.
-   type Buffer_Usage is (Static_Usage, Dynamic_Usage);
+   type Buffer_Usage is
+     (
+      Stream_Draw,
+      Stream_Read,
+      Stream_Copy,
+      Static_Draw,
+      Static_Read,
+      Static_Copy,
+      Dynamic_Draw,
+      Dynamic_Read,
+      Dynamic_Copy
+     );
 
 
-   function Is_Buffer (Item : Buffer) return Boolean;
+   type Buffer_Target is
+     (
+      Array_Buffer,
+      Element_Array_Buffer,
+      Pixel_Pack_Buffer,
+      Pixel_Unpack_Buffer,
+      Uniform_Buffer,
+      Texture_Buffer,
+      Transform_Feedback_Buffer,
+      Copy_Read_Buffer,
+      Copy_Write_Buffer,
+      Draw_Inderect_Buffer,
+      Shader_Storage_Buffer,
+      Dispatch_Inderect_Buffer,
+      Query_Buffer,
+      Atomic_Counter_Buffer
+     );
 
-   -- glGenBuffers returns Item'Length buffer object names in buffers.
-   -- There is no guarantee that the names form a contiguous set of integers;
-   -- however, it is guaranteed that none of the returned names was in use
-   -- immediately before the call to glGenBuffers.
-   procedure Generate_Buffer (Item : out Buffer_Array);
-
-
-
-   -- Generate one buffer object name.
-   function Generate_Buffer return Buffer;
-
-
-   -- glCreateBuffers returns n previously unused buffer names in buffers,
-   -- each representing a new buffer object initialized as if it had been bound to an unspecified target.
-   function Create_Buffer return Buffer with
-     Post => Is_Buffer (Create_Buffer'Result) and Errors.Successful;
-
-
-   -- glBindBuffer binds a buffer object to the specified buffer binding point.
-   -- Calling glBindBuffer with target set to one of the accepted symbolic
-   -- constants and buffer set to the name of a buffer object binds that buffer object name to the target.
-   -- If no buffer object with name buffer exists, one is created with that name.
-   -- When a buffer object is bound to a target, the previous binding for that target is automatically broken.
-   procedure Bind (To : Buffer_Slot; Item : Buffer) with
-     Post => Is_Buffer (Item) and Errors.Successful;
-
-
-   procedure Create_New_Storage (B : Buffer; Size_Bytes : Natural; Data : Address; Usage : Buffer_Usage) with
-     Post => Is_Buffer (B) and Errors.Successful;
-
-   --procedure Create_New_Storage (B : Buffer; Size_Bytes : Natural; Usage : Buffer_Usage);
-   procedure Redefine_Storage (B : Buffer; Offset_Byte : Natural; Size_Bytes : Natural; Data : Address) with
-     Post => Is_Buffer (B) and Errors.Successful;
-
-   function Identity (Item : Buffer) return GLuint;
-
-
-   procedure Put_Line_Fancy (Item : Buffer);
 
 
 private
 
 
-
-
-   for Buffer_Slot'Size use GLuint'Size;
-   for Buffer_Slot use
-     (
-      Array_Slot => GL_ARRAY_BUFFER,
-      Element_Array_Slot => GL_ELEMENT_ARRAY_BUFFER
-     );
+   use GL.C;
+   use System;
 
 
    for Buffer_Usage'Size use GLenum'Size;
+   for Buffer_Target'Size use GLenum'Size;
+
+
    for Buffer_Usage use
      (
-      Static_Usage => GL_STATIC_DRAW,
-      Dynamic_Usage => GL_DYNAMIC_DRAW
+      Stream_Draw => 16#88E0#,
+      Stream_Read => 16#88E1#,
+      Stream_Copy => 16#88E2#,
+      Static_Draw => 16#88E4#,
+      Static_Read => 16#88E5#,
+      Static_Copy => 16#88E6#,
+      Dynamic_Draw => 16#88E8#,
+      Dynamic_Read => 16#88E9#,
+      Dynamic_Copy => 16#88EA#
      );
 
+
+   for Buffer_Target use
+     (
+      Array_Buffer              => 16#8892#,
+      Element_Array_Buffer      => 16#8893#,
+      Pixel_Pack_Buffer         => 16#88EB#,
+      Pixel_Unpack_Buffer       => 16#88EC#,
+      Uniform_Buffer            => 16#8A11#,
+      Texture_Buffer            => 16#8C2A#,
+      Transform_Feedback_Buffer => 16#8C8E#,
+      Copy_Read_Buffer          => 16#8F36#,
+      Copy_Write_Buffer         => 16#8F37#,
+      Draw_Inderect_Buffer      => 16#8F3F#,
+      Shader_Storage_Buffer     => 16#90D2#,
+      Dispatch_Inderect_Buffer  => 16#90EE#,
+      Query_Buffer              => 16#9192#,
+      Atomic_Counter_Buffer     => 16#92C0#
+     );
 
 
 end;

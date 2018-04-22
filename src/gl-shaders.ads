@@ -9,28 +9,24 @@ package GL.Shaders is
    use type GL.C.GLenum;
 
    type Shader_Stage is
-     (
-      Fragment_Stage,
+     (Fragment_Stage,
       Vertex_Stage,
       Geometry_Stage,
       Tess_Evaluation_Stage,
-      Tess_Control_Stage
-     );
+      Tess_Control_Stage);
 
    type Shader_Info is
-     (
-      Stage_Info,
+     (Stage_Info,
       Delete_Info,
       Compile_Info,
       Log_Length_Info,
-      Source_Length_Info
-     );
+      Source_Length_Info);
 
    -- Specifies the handle of the shader object whose source code is to be replaced.
    type Shader is private;
 
    function Is_Shader (Item : Shader) return Boolean with
-     Post => Errors.Successful;
+     Post => Is_Shader'Result'Valid and Errors.Successful;
 
    function Identity (Item : Shader) return GLuint;
 
@@ -55,23 +51,20 @@ package GL.Shaders is
 
    function Compile_Succeess (Item : Shader) return Boolean with
      Pre => Is_Shader (Item),
-     Post => Errors.Successful;
+     Post => Compile_Succeess'Result'Valid and Errors.Successful;
 
    procedure Get_Compile_Log (Item : Shader; Message : out String; Count : out Natural) with
      Pre => Is_Shader (Item),
      Post => Errors.Successful;
 
    function Get_Source_Length (Item : Shader) return Natural with
-     Pre => Is_Shader (Item),
-     Post => Errors.Successful;
+     Pre => Is_Shader (Item);
 
    function Get_Compile_Log (Item : Shader; Count : Natural := 1024) return String with
-     Pre => Is_Shader (Item),
-     Post => Errors.Successful;
+     Pre => Is_Shader (Item);
 
    function Get_Stage (Item : Shader) return Shader_Stage with
-     Pre => Is_Shader (Item),
-     Post => Errors.Successful;
+     Pre => Is_Shader (Item);
 
    Compile_Error : exception;
 
@@ -80,24 +73,19 @@ private
    type Shader is new GL.C.GLuint range 1 .. GL.C.GLuint'Last;
 
    for Shader_Stage'Size use GL.C.GLenum'Size;
-   for Shader_Info'Size use GL.C.GLenum'Size;
+   for Shader_Info'Size  use GL.C.GLenum'Size;
 
    for Shader_Stage use
-     (
-      Fragment_Stage        => 16#8B30#,
-      Vertex_Stage          => 16#8B31#,
-      Geometry_Stage        => 16#8DD9#,
+     (Fragment_Stage        => GL_FRAGMENT_SHADER,
+      Vertex_Stage          => GL_VERTEX_SHADER,
+      Geometry_Stage        => GL_GEOMETRY_SHADER,
       Tess_Evaluation_Stage => 16#8E87#,
-      Tess_Control_Stage    => 16#8E88#
-     );
-
+      Tess_Control_Stage    => 16#8E88#);
    for Shader_Info use
-     (
-      Stage_Info         => GL_SHADER_TYPE,
-      Delete_Info        => GL_DELETE_STATUS,
-      Compile_Info       => GL_COMPILE_STATUS,
-      Log_Length_Info    => GL_INFO_LOG_LENGTH,
-      Source_Length_Info => GL_SHADER_SOURCE_LENGTH
-     );
+     (Stage_Info            => GL_SHADER_TYPE,
+      Delete_Info           => GL_DELETE_STATUS,
+      Compile_Info          => GL_COMPILE_STATUS,
+      Log_Length_Info       => GL_INFO_LOG_LENGTH,
+      Source_Length_Info    => GL_SHADER_SOURCE_LENGTH);
 
 end;

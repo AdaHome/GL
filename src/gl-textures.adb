@@ -15,14 +15,14 @@ package body GL.Textures is
       return Texture (tex);
    end;
 
-   function Create (Target : Targets.Target) return Texture is
+   function Create (Target : Texture_Target) return Texture is
       tex : aliased GLuint;
    begin
       glCreateTextures (Target'Enum_Rep, 1, tex'Access);
       return Texture (tex);
    end;
 
-   procedure Bind (Target : Targets.Target; Name : Texture) is
+   procedure Bind (Target : Texture_Target; Name : Texture) is
    begin
       glBindTexture (Target'Enum_Rep, GLuint (Name));
    end;
@@ -49,7 +49,7 @@ package body GL.Textures is
       glTextureSubImage2D (GLuint (Name), 0, xoffset, yoffset, width, height, format'Enum_Rep, kind'Enum_Rep, data);
    end;
 
-   procedure Load (Target : Targets.Target; width : GLsizei; height : GLsizei; Format : Pixel_Format; Kind : Pixel_Type; Data : Address) is
+   procedure Load (Target : Texture_Target; width : GLsizei; height : GLsizei; Format : Pixel_Format; Kind : Pixel_Type; Data : Address) is
    begin
       glTexImage2D (Target'Enum_Rep, 0, Format'Enum_Rep, width, height, 0, Format'Enum_Rep, Kind'Enum_Rep, Data);
    end;
@@ -59,7 +59,7 @@ package body GL.Textures is
       glTextureParameteri (GLuint (Name), Symbol'Enum_Rep, Param'Enum_Rep);
    end;
 
-   procedure Set_Parameter (Target : Targets.Target; Symbol : Symbolic_Name; Param : Symbolic_Param) is
+   procedure Set_Parameter (Target : Texture_Target; Symbol : Symbolic_Name; Param : Symbolic_Param) is
    begin
       glTexParameteri (Target'Enum_Rep, Symbol'Enum_Rep, Param'Enum_Rep);
    end;

@@ -16,38 +16,22 @@ package GL.Textures is
 
    type Texture is private;
 
-   package Targets is
-      type Target is (Texture_1D, Texture_3D, Texture_2D_Array);
-   private
-      for Target'Size use GLenum'Size;
-      for Target use
-        (
-	 Texture_1D       => GL_TEXTURE_1D,
-	 Texture_3D       => GL_TEXTURE_2D,
-	 Texture_2D_Array => GL_TEXTURE_2D_ARRAY
-	);
-   end;
-
-
-
-
-
-   type Symbolic_Name is (Texture_Mag_Filter, Texture_Min_Filter, Texture_Wrap_S, Texture_Wrap_T);
-   type Symbolic_Param is (Nearest_Param, Linear_Param, Clamp_Param, Repeat_Param, Clamp_To_Edge_Param);
-
-   type Pixel_Format is (Red_Pixel_Format, RGB_Pixel_Format, RGBA_Pixel_Format);
+   type Texture_Target                is (Texture_1D, Texture_3D, Texture_2D_Array);
+   type Symbolic_Name         is (Texture_Mag_Filter, Texture_Min_Filter, Texture_Wrap_S, Texture_Wrap_T);
+   type Symbolic_Param        is (Nearest_Param, Linear_Param, Clamp_Param, Repeat_Param, Clamp_To_Edge_Param);
+   type Pixel_Format          is (Red_Pixel_Format, RGB_Pixel_Format, RGBA_Pixel_Format);
    type Internal_Pixel_Format is (RGBA2_Internal_Pixel_Format, R8_Internal_Pixel_Format, R16_Internal_Pixel_Format);
-   type Pixel_Type is (Byte_Pixel_Type, Unsigned_Byte_Pixel_Type);
+   type Pixel_Type            is (Byte_Pixel_Type, Unsigned_Byte_Pixel_Type);
 
 
    function Is_Texture (Name : Texture) return Boolean;
 
    function Generate return Texture;
 
-   function Create (Target : Targets.Target) return Texture with
+   function Create (Target : Texture_Target) return Texture with
      Post => Is_Texture (Create'Result) and Errors.Successful;
 
-   procedure Bind (Target : Targets.Target; Name : Texture) with
+   procedure Bind (Target : Texture_Target; Name : Texture) with
      Post => Is_Texture (Name) and Errors.Successful;
 
    --glTextureStorage2D
@@ -78,14 +62,14 @@ package GL.Textures is
      Pre => Is_Texture (Name),
      Post => Errors.Successful;
 
-   procedure Load (Target : Targets.Target; width : GLsizei; height : GLsizei; Format : Pixel_Format; Kind : Pixel_Type; Data : Address) with
+   procedure Load (Target : Texture_Target; width : GLsizei; height : GLsizei; Format : Pixel_Format; Kind : Pixel_Type; Data : Address) with
      Post => Errors.Successful;
 
    procedure Set_Parameter (Name : Texture; Symbol : Symbolic_Name; Param : Symbolic_Param) with
      Pre => Is_Texture (Name),
      Post => Errors.Successful;
 
-   procedure Set_Parameter (Target : Targets.Target; Symbol : Symbolic_Name; Param : Symbolic_Param) with
+   procedure Set_Parameter (Target : Texture_Target; Symbol : Symbolic_Name; Param : Symbolic_Param) with
      Post => Errors.Successful;
 
    procedure Set_Pack_Pixel_Alignment (Bytes : GLint) with
@@ -102,50 +86,38 @@ private
 
    type Texture is new GLuint;
 
-   for Pixel_Format'Size use GLenum'Size;
-   for Pixel_Type'Size use GLenum'Size;
-   for Symbolic_Name'Size use GLenum'Size;
-   for Symbolic_Param'Size use GLenum'Size;
+   for Texture_Target'Size        use GLenum'Size;
+   for Pixel_Format'Size          use GLenum'Size;
+   for Pixel_Type'Size            use GLenum'Size;
+   for Symbolic_Name'Size         use GLenum'Size;
+   for Symbolic_Param'Size        use GLenum'Size;
    for Internal_Pixel_Format'Size use GLenum'Size;
 
-
-
+   for Texture_Target use
+     (Texture_1D                  => GL_TEXTURE_1D,
+      Texture_3D                  => GL_TEXTURE_2D,
+      Texture_2D_Array            => GL_TEXTURE_2D_ARRAY);
    for Pixel_Format use
-     (
-      Red_Pixel_Format  => GL_RED,
-      RGB_Pixel_Format  => GL_RGB,
-      RGBA_Pixel_Format => GL_RGBA
-     );
-
+     (Red_Pixel_Format            => GL_RED,
+      RGB_Pixel_Format            => GL_RGB,
+      RGBA_Pixel_Format           => GL_RGBA);
    for Internal_Pixel_Format use
-     (
-      RGBA2_Internal_Pixel_Format => GL_RGBA2,
+     (RGBA2_Internal_Pixel_Format => GL_RGBA2,
       R8_Internal_Pixel_Format    => GL_R8,
-      R16_Internal_Pixel_Format   => GL_R16
-     );
-
+      R16_Internal_Pixel_Format   => GL_R16);
    for Pixel_Type use
-     (
-      Byte_Pixel_Type          => GL_BYTE,
-      Unsigned_Byte_Pixel_Type => GL_UNSIGNED_BYTE
-     );
-
+     (Byte_Pixel_Type             => GL_BYTE,
+      Unsigned_Byte_Pixel_Type    => GL_UNSIGNED_BYTE);
    for Symbolic_Param use
-     (
-      Nearest_Param       => GL_NEAREST,
-      Linear_Param        => GL_LINEAR,
-      Clamp_Param         => GL_CLAMP,
-      Repeat_Param        => GL_REPEAT,
-      Clamp_To_Edge_Param => GL_CLAMP_TO_EDGE
-     );
-
+     (Nearest_Param               => GL_NEAREST,
+      Linear_Param                => GL_LINEAR,
+      Clamp_Param                 => GL_CLAMP,
+      Repeat_Param                => GL_REPEAT,
+      Clamp_To_Edge_Param         => GL_CLAMP_TO_EDGE);
    for Symbolic_Name use
-     (
-      Texture_Mag_Filter => GL_TEXTURE_MAG_FILTER,
-      Texture_Min_Filter => GL_TEXTURE_MIN_FILTER,
-      Texture_Wrap_S     => GL_TEXTURE_WRAP_S,
-      Texture_Wrap_T     => GL_TEXTURE_WRAP_T
-     );
-
+     (Texture_Mag_Filter          => GL_TEXTURE_MAG_FILTER,
+      Texture_Min_Filter          => GL_TEXTURE_MIN_FILTER,
+      Texture_Wrap_S              => GL_TEXTURE_WRAP_S,
+      Texture_Wrap_T              => GL_TEXTURE_WRAP_T);
 
 end;

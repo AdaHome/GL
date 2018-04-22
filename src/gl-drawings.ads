@@ -35,21 +35,15 @@ package GL.Drawings is
 
 private
 
-
+   for Mode'Size     use GLenum'Size;
    for Bitplane'Size use GLbitfield'Size;
+
    for Bitplane use
-     (
-      Depth_Plane => GL_DEPTH_BUFFER_BIT,
-      Color_Plane => GL_COLOR_BUFFER_BIT
-     );
-
-
-   for Mode'Size use GLenum'Size;
+     (Depth_Plane     => GL_DEPTH_BUFFER_BIT,
+      Color_Plane     => GL_COLOR_BUFFER_BIT);
    for Mode use
-     (
-      Lines_Mode      => GL_LINES,
+     (Lines_Mode      => GL_LINES,
       Line_Strip_Mode => GL_LINE_STRIP,
-      Triangles_Mode  => GL_TRIANGLES
-     );
+      Triangles_Mode  => GL_TRIANGLES);
 
 end;
