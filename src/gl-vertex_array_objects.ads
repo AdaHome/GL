@@ -57,7 +57,8 @@ package GL.Vertex_Array_Objects is
    --glDisableVertexAttribArray disables the generic vertex attribute array specified by index.
    --By default, all client-side capabilities are disabled, including all generic vertex attribute arrays.
    --If enabled, the values in the generic vertex attribute array will be accessed and used for rendering when calls are made to vertex array commands such as glDrawArrays or glDrawElements.
-   procedure Set_Attribute_Enable (Attribute : Component_Attribute);
+   procedure Set_Attribute_Enable (Attribute : Component_Attribute) with
+     Post => Errors.Successful;
 
 
 
@@ -85,7 +86,7 @@ package GL.Vertex_Array_Objects is
    -- are to be mapped to the range [-1,1] (for signed values) or [0,1] (for unsigned values)
    -- when they are accessed and converted to floating point. Otherwise, values will be converted to
    -- floats directly without normalization.
-   procedure Set_Attribute_Memory_Layout
+   procedure Set_Attribute_Memory_Layout1
      (Attribute    : Component_Attribute;
       Count        : Component_Count;
       Kind         : Component_Kind;
@@ -110,7 +111,8 @@ package GL.Vertex_Array_Objects is
       Kind         : Component_Kind;
       Normalized   : Boolean;
       Offset_Bytes : Natural) with
-     Pre => Is_Vertex_Array_Object (VAO);
+     Pre => Is_Vertex_Array_Object (VAO),
+     Post => Errors.Successful;
 
 
 
@@ -123,13 +125,21 @@ package GL.Vertex_Array_Objects is
    -- program object or if name starts with the reserved prefix "gl_", a value of -1 is returned.
    function Get_Attribute_By_Name
      (From_Program : GLuint;
-      Name         : String) return Component_Attribute;
+      Name         : String) return Component_Attribute with
+     Post => GL.Errors.Successful;
 
 
 
    procedure Put_Line_Fancy (Item : Vertex_Array_Object);
+   procedure Put_Line_Fancy (Item : Component_Attribute);
 
+   --glVertexArrayVertexBuffer
+   procedure Bind_Buffer_Vertex (VAO : Vertex_Array_Object; Index : GLuint; Buffer : GLuint; Offset : GLintptr; Stride : GLsizei) with
+     Post => GL.Errors.Successful;
 
+   --glVertexArrayAttribBinding
+   procedure VertexArrayAttribBinding (VAO : Vertex_Array_Object; Component : Component_Attribute; Binding_Index : GLuint) with
+     Post => GL.Errors.Successful;
 
 private
 

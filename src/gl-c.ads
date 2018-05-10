@@ -22,6 +22,7 @@ package GL.C is
    subtype GLubyte      is unsigned_char;
    subtype GLvoid       is Address;
    subtype GLchar       is char;
+   subtype GLclampf     is C_float;
 
    -- Specials
    type GLintv          is array (size_t range <>) of aliased int with Convention => C;
@@ -131,6 +132,11 @@ package GL.C is
      Import,
      Convention => StdCall,
      External_Name => "glClear";
+
+   procedure glClearColor (red : GLclampf; green : GLclampf; blue : GLclampf; alpha : GLclampf) with
+     Import,
+     Convention => StdCall,
+     External_Name => "glClearColor";
 
    procedure glEnable (cap : GLenum) with
      Import,
@@ -260,6 +266,7 @@ package GL.C is
    glCreateBuffers            : P.glCreateBuffers;
    glNamedBufferData          : P.glNamedBufferData;
    glNamedBufferSubData       : P.glNamedBufferSubData;
+   glNamedBufferStorage       : P.glNamedBufferStorage;
 
    glTextureParameteri        : P.glTextureParameteri;
    glTextureSubImage2D        : P.glTextureSubImage2D;
@@ -268,7 +275,6 @@ package GL.C is
 
    glTextureSubImage3D        : P.glTextureSubImage3D;
    glTextureStorage3D         : P.glTextureStorage3D;
-   glNamedBufferStorage       : P.glNamedBufferStorage;
 
 
 end;

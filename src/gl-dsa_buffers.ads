@@ -26,9 +26,12 @@ package GL.DSA_Buffers is
    function Create_Buffer return DSA_Buffer with
      Post => Is_Buffer (Create_Buffer'Result) and Errors.Successful;
 
+   procedure Named_Buffer_Data (Buffer : DSA_Buffer; Size_Bytes : Natural; Data : Address; Usage : Buffer_Usage) with
+     Post => Is_Buffer (Buffer) and Errors.Successful;
 
-   procedure Named_Buffer_Data (B : DSA_Buffer; Size_Bytes : Natural; Data : Address; Usage : Buffer_Usage) with
-     Post => Is_Buffer (B) and Errors.Successful;
+   --glNamedBufferStorage
+   procedure Named_Buffer_Storage (Buffer : DSA_Buffer; Size_Bytes : Natural; Data : Address; Flags : GLbitfield) with
+     Post => Is_Buffer (Buffer) and Errors.Successful;
 
 
 private

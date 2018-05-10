@@ -12,15 +12,15 @@ package body GL.DSA_Buffers is
    end;
 
 
-   procedure Named_Buffer_Data (B : DSA_Buffer; Size_Bytes : Natural; Data : Address; Usage : Buffer_Usage) is
+   procedure Named_Buffer_Data (Buffer : DSA_Buffer; Size_Bytes : Natural; Data : Address; Usage : Buffer_Usage) is
    begin
-      glNamedBufferData (GLuint (B), GLsizeiptr (Size_Bytes), Data, Usage'Enum_Rep);
+      glNamedBufferData (GLuint (Buffer), GLsizeiptr (Size_Bytes), Data, Usage'Enum_Rep);
    end;
 
 
-   procedure Named_Buffer_Storage (B : DSA_Buffer; Offset_Byte : Natural; Data : Address; Flag : GLbitfield) is
+   procedure Named_Buffer_Storage (Buffer : DSA_Buffer; Size_Bytes : Natural; Data : Address; Flags : GLbitfield) is
    begin
-      null;
+      glNamedBufferStorage (GLuint (Buffer), GLintptr (Size_Bytes), Data, Flags);
    end Named_Buffer_Storage;
 
 

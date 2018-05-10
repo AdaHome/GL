@@ -7,7 +7,8 @@ package body GL.Errors is
       use GL.C;
       use type GL.C.GLenum;
    begin
-      return glGetError = GL_NO_ERROR;
+      Global_Error := glGetError;
+      return Global_Error = GL_NO_ERROR;
    end Successful;
 
 
@@ -15,7 +16,8 @@ package body GL.Errors is
       use GL.C;
       use type GL.C.GLenum;
    begin
-      return glGetError /= GL_NO_ERROR;
+      Global_Error := glGetError;
+      return Global_Error /= GL_NO_ERROR;
    end Unsuccessful;
 
 

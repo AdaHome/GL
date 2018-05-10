@@ -64,7 +64,7 @@ package body GL.Vertex_Array_Objects is
 
 
 
-   procedure Set_Attribute_Memory_Layout
+   procedure Set_Attribute_Memory_Layout1
      (Attribute    : Component_Attribute;
       Count        : Component_Count;
       Kind         : Component_Kind;
@@ -107,5 +107,23 @@ package body GL.Vertex_Array_Objects is
       Put_Line ("Vertex array object name: " & Item'Img);
    end;
 
+
+   procedure Put_Line_Fancy (Item : Component_Attribute) is
+      use Ada.Text_IO;
+   begin
+      Put_Line ("Vertex array object name: " & Item'Img);
+   end;
+
+
+   procedure Bind_Buffer_Vertex (VAO : Vertex_Array_Object; Index : GLuint; Buffer : GLuint; Offset : GLintptr; Stride : GLsizei) is
+   begin
+      glVertexArrayVertexBuffer (GLuint (VAO), Index, Buffer, Offset, Stride);
+   end Bind_Buffer_Vertex;
+
+
+   procedure VertexArrayAttribBinding (VAO : Vertex_Array_Object; Component : Component_Attribute; Binding_Index : GLuint) is
+   begin
+      glVertexArrayAttribBinding (GLuint (VAO), GLuint (Component), Binding_Index);
+   end VertexArrayAttribBinding;
 
 end;

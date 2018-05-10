@@ -20,6 +20,7 @@ package GL.Drawings is
 
    -- glDrawArrays
    procedure Draw (Item : Mode; From : Natural; Count : Natural) with
+     Pre => Errors.Successful,
      Post => Errors.Successful;
 
 
